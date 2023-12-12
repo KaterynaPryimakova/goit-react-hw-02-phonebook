@@ -13,11 +13,11 @@ export class ContactForm extends Component {
     return (
       <form className={css.form}>
         <h2>{title}</h2>
-        <label htmlFor="name">Enter your name</label>
+        <label htmlFor="name">Enter your name:</label>
 
         <input type="text" name="name" required />
 
-        <label htmlFor="number"> Enter your number</label>
+        <label htmlFor="number"> Enter your number:</label>
 
         <input type="tel" name="number" required />
         <Button title="Add contact" />

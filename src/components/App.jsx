@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { ContactForm } from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
+import { Filter } from './Filter/Filter';
 
 export class App extends Component {
   state = {
@@ -16,18 +17,11 @@ export class App extends Component {
   render() {
     const { contacts } = this.state;
     return (
-      <div
-      // style={{
-      //   height: '100vh',
-      //   display: 'flex',
-      //   justifyContent: 'center',
-      //   alignItems: 'center',
-      //   fontSize: 40,
-      //   color: '#010101'
-      // }}
-      >
+      <div>
         <ContactForm title="Phonebook" />
-        <ContactList contacts={contacts} />
+        <ContactList title="Contacts" contacts={contacts}>
+          <Filter />
+        </ContactList>
       </div>
     );
   }
