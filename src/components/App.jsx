@@ -15,6 +15,14 @@ export class App extends Component {
   };
 
   updateState = newContact => {
+    const alreadyExist = this.state.contacts.some(
+      contact => contact.name === newContact.name
+    );
+    if (alreadyExist) {
+      alert(`${newContact.name} is already in contact.`);
+      return;
+    }
+
     this.setState(prevState => ({
       contacts: [...prevState.contacts, newContact],
     }));
