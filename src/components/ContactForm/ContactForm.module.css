@@ -3,5 +3,17 @@
   flex-direction: column;
   gap: 5px;
   max-width: 280px;
-  padding: 25px;
+  padding-left: 25px;
+  margin-bottom: 20px;
+}
+.button {
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 5px;
+  box-shadow: 2px 2px 1px grey;
+}
+.button:hover {
+  color: grey;
+  background-color: #000;
 }
