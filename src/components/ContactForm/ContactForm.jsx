@@ -8,7 +8,7 @@ export class ContactForm extends Component {
     number: '',
   };
 
-  addContact = evt => {
+  handleAddContact = evt => {
     evt.preventDefault();
 
     const form = evt.currentTarget;
@@ -33,7 +33,7 @@ export class ContactForm extends Component {
 
   render() {
     return (
-      <form onSubmit={this.addContact} className={css.form}>
+      <form onSubmit={this.handleAddContact} className={css.form}>
         <label htmlFor="name">Enter your name:</label>
 
         <input type="text" name="name" required />
