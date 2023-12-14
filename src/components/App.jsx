@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { ContactForm } from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
+import { nanoid } from 'nanoid';
 
 export class App extends Component {
   state = {
@@ -11,7 +12,7 @@ export class App extends Component {
 
   updateState = newContact => {
     const alreadyExist = this.state.contacts.some(
-      contact => contact.name === newContact.name
+      contact => contact.name.toLowerCase() === newContact.name.toLowerCase()
     );
 
     if (alreadyExist) {
@@ -20,7 +21,7 @@ export class App extends Component {
     }
 
     this.setState(prevState => ({
-      contacts: [...prevState.contacts, newContact],
+      contacts: [...prevState.contacts, { ...newContact, id: nanoid() }],
     }));
   };
 
@@ -35,23 +36,29 @@ export class App extends Component {
     });
   };
 
-  render() {
+  getFilteredContacts = () => {
     const { contacts, filter } = this.state;
-
-    const filteredContacts = contacts.filter(contact =>
-      contact.name.toLowerCase().includes(filter.trim().toLowerCase())
+    return contacts.filter(
+      contact =>
+        contact.name.toLowerCase().includes(filter.trim().toLowerCase()) ||
+        contact.number.includes(filter)
     );
+  };
 
+  render() {
     return (
       <div>
         <h1>Phonebook</h1>
         <ContactForm title="Phonebook" getNewContact={this.updateState} />
 
         <h2>Contacts</h2>
-        <Filter findContact={this.handleFindContact} filter={filter} />
+        <Filter
+          findContact={this.handleFindContact}
+          filter={this.state.filter}
+        />
         <ContactList
           title="Contacts"
-          contacts={filteredContacts}
+          contacts={this.getFilteredContacts()}
           deleteContact={this.handleDeleteContact}
         />
       </div>

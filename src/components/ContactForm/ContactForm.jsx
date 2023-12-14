@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import css from './ContactForm.module.css';
-import { nanoid } from 'nanoid';
 
 export class ContactForm extends Component {
   state = {
@@ -8,39 +7,46 @@ export class ContactForm extends Component {
     number: '',
   };
 
+  handleChange = e => {
+    const { name, value } = e.currentTarget;
+    this.setState({ [name]: value });
+  };
+
   handleAddContact = evt => {
     evt.preventDefault();
 
-    const form = evt.currentTarget;
-    const userName = form.elements.name.value;
-    const userNumber = form.elements.number.value;
+    this.props.getNewContact(this.state);
 
-    const { getNewContact } = this.props;
-
-    this.setState(
-      {
-        name: userName,
-        number: userNumber,
-        id: nanoid(),
-      },
-      () => {
-        getNewContact(this.state);
-      }
-    );
-
-    form.reset();
+    this.setState({
+      name: '',
+      number: '',
+    });
   };
 
   render() {
     return (
       <form onSubmit={this.handleAddContact} className={css.form}>
-        <label htmlFor="name">Enter your name:</label>
+        <label>
+          Enter your name:
+          <input
+            onChange={this.handleChange}
+            type="text"
+            name="name"
+            value={this.state.name}
+            required
+          />
+        </label>
 
-        <input type="text" name="name" required />
-
-        <label htmlFor="number"> Enter your number:</label>
-
-        <input type="tel" name="number" required />
+        <label>
+          Enter your number:
+          <input
+            onChange={this.handleChange}
+            type="tel"
+            name="number"
+            value={this.state.number}
+            required
+          />
+        </label>
 
         <button className={css.button}>Add contact</button>
       </form>
